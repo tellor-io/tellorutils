@@ -42,9 +42,12 @@ var gas_limit = 400000
 //Rinkeby
 const tellorMasterAddress = '0xFe41Cb708CD98C5B20423433309E55b53F79134a'
 const network = "rinkeby";
+const etherscanUrl = "https://rinkeby.etherscan.io"
 
 // var tellorMasterAddress = '0x0Ba45A8b5d5575935B8158a88C631E9F9C95a2e5'
 // const network = "mainnet";
+// const etherscanUrl = "https://rinkeby.etherscan.io"
+
 
 
 console.log(_UTCtime)
@@ -93,8 +96,8 @@ let run = async function () {
             var gasP = await fetchGasPrice()
 
             let tx = await contractWithSigner.addTip(10, 1, { from: pubAddr, gasLimit: gas_limit, gasPrice: gasP });
-            var link = "".concat('https://etherscan.io/tx/', tx.hash)
-            var ownerlink = "".concat('https://etherscan.io/address/', tellorMasterAddress)
+            var link = "".concat(etherscanUrl, '/tx/', tx.hash)
+            var ownerlink = "".concat(etherscanUrl, '/address/', tellorMasterAddress)
             console.log('Yes, a request was sent for the APML price')
             console.log("Hash link: ", link)
             console.log("Contract link: ", ownerlink)
