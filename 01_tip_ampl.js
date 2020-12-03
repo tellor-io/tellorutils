@@ -1,9 +1,9 @@
 /**************************ETH tip AMPL********************************************/
 
-//                Tip AMPL on Tellor mainnet                                  //
+//                Tip AMPL on Tellor                                  //
 
 /******************************************************************************************/
-//truffle exec 01_tip_ampl.js --network mainnet
+// node script.js
 
 require('dotenv').config()
 const ethers = require('ethers');
