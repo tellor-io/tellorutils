@@ -5,7 +5,7 @@ on:
 
 
 jobs:
-  ampl-submit:
+  ampl:
     runs-on: ubuntu-latest
 
     strategy:
@@ -19,4 +19,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
-    - run: node example.js
+    - run: node 01_tip_ampl.js
+      env:
+        ETH_PK: ${{ secrets.ETH_PK }}
+        ETH_PUB: ${{ secrets.ETH_PUB }}
+        INFURA_TOKEN: ${{ secrets.INFURA_TOKEN }}
