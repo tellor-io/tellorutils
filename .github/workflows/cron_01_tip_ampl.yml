@@ -1,0 +1,32 @@
+name: Cron_01_tip_ampl
+on:
+  schedule: 
+  - cron: "0 0 * * *"  # https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#scheduled-events
+
+
+jobs:
+  ampl-submit:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run tests with Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm install
+    - run: truffle compile
+    - run: truffle exec 01_tip_ampl.js --network mainnet
+##how to switch to hardhat and ethers??
+#   - run: npx hardhat task_nameIn_hardhat.config.js ???
+#      env:
+#        CI: true
+        # These are not needed for the tests but
+        # hardhat fails to start if not present.
+#        INFURA_RINKEBY: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+#        INFURA_MAINNET: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+#        PRIVATE_KEY: "00000000000000000000000000000000000000000000000000"
