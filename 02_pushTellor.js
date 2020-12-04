@@ -37,11 +37,6 @@ async function fetchGasPrice() {
   }
 }
 
-var pk = process.env.ETH_PK
-var accessToken = process.env.INFURA_ACCESS_TOKEN
-//var web3 = new Web3(new HDWalletProvider(pk,"https://rinkeby.infura.io/v3"+ accessToken))
-//var web3 = new Web3(new HDWalletProvider(pk,"https://mainnet.infura.io/v3/" + accessToken))
-
 var _UTCtime  = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
 var gas_Limit= 400000
 
