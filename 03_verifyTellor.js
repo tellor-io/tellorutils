@@ -40,7 +40,7 @@ async function fetchGasPrice() {
 }
 
 var _UTCtime  = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
-var gas_Limit= 400000
+var gas_limit= 400000
 
 //Rinkeby
 var AMPLInterAddress = "0x1960f02aAC4fFd27A4439a0Fd8B9b6fc4dC01489"
@@ -71,7 +71,7 @@ let run = async function () {
 
     try {
         var provider = ethers.getDefaultProvider(network, infuraKey);
-        let wallet = new ethers.Wallet(privKey, provider);
+        var wallet = new ethers.Wallet(privKey, provider);
         let abi = await loadJsonFile(path.join("abi", "tellor.json"))
         let contract = new ethers.Contract(tellorMasterAddress, abi, provider);
         var contractWithSigner = contract.connect(wallet);
@@ -95,7 +95,7 @@ let run = async function () {
         process.exit(1)
     }
     
-    if (gasP != 0 && txestimate > balNow ) {
+    if (gasP != 0 && txestimate < balNow ) {
         try{
             
             let abiAmpl = await loadJsonFile(path.join("abi", "abiAmplIntermediate.json"))
@@ -110,9 +110,9 @@ let run = async function () {
 
             console.log("Verify Tellor's AMPL price")
             try{
-                let tx = await amplIntertWithSigner.verifyTellorReports().send({from: accountFrom,gas: gas_Limit,gasPrice: gasP })
+                let tx = await amplIntertWithSigner.verifyTellorReports().send({from: pubAddr,gas: gas_limit,gasPrice: gasP })
                 var link = "".concat(etherscanUrl, '/tx/', tx.hash)
-                var ownerlink = "".concat(etherscanUrl, '/address/', accountFrom)
+                var ownerlink = "".concat(etherscanUrl, '/address/', pubAddr)
                     console.log('Yes, a request was sent for the APML price')
                     console.log("Hash link: ", link)
                     console.log("Sender address: ", ownerlink)
@@ -129,6 +129,6 @@ let run = async function () {
 
 }
 
-
+run()
 
 
