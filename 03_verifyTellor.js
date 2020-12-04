@@ -65,7 +65,7 @@ console.log("Tellor Address: ", tellorMasterAddress)
 console.log('<https://www.etherchain.org/api/gasPriceOracle>')
 console.log("AMPL Intermediate address: ", AMPLInterAddress)
 
-module.exports =async function(callback) {
+let run = async function () {
     try {
         var gasP = await fetchGasPrice()
         console.log("gasP1", gasP)
