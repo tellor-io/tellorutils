@@ -122,7 +122,7 @@ let run = async function () {
                 process.exit(1)
             }
             console.log("AMPL has not been disputed")
-            process.exit(1)
+            
 
     }
     process.exit()
