@@ -110,7 +110,8 @@ let run = async function () {
 
             console.log("Verify Tellor's AMPL price")
             try{
-                let tx = await amplIntertWithSigner.verifyTellorReports()
+                //let tx = await amplIntertWithSigner.verifyTellorReports()
+                let tx = await amplIntertWithSigner.verifyTellorReports({ from: pubAddr, gasLimit: gas_limit, gasPrice: gasP })
                 var link = "".concat(etherscanUrl, '/tx/', tx.hash)
                 var ownerlink = "".concat(etherscanUrl, '/address/', pubAddr)
                     console.log('Yes, a request was sent for the APML price')
