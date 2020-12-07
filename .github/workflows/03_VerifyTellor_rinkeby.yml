@@ -19,8 +19,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
-    - run: node AMPL/03_verifyTellor.js
+    - run: node AMPL/03_verifyTellor_rinkeby.js
       env:
-        ETH_PK: ${{ secrets.ETH_PK }}
-        ETH_PUB: ${{ secrets.ETH_PUB }}
+        ETH_PK: ${{ secrets.RINKEBY_ETH_PK }}
+        ETH_PUB: ${{ secrets.RINKEBY_ETH_PUB }}
         INFURA_TOKEN: ${{ secrets.INFURA_TOKEN }}

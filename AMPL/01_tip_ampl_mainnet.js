@@ -3,17 +3,29 @@
 //                Tip AMPL on Tellor                                  //
 
 /******************************************************************************************/
-// node 01_tip_apl.js
+// node 01_tip_apl_mainnet.js
 
 require('dotenv').config()
 const ethers = require('ethers');
 const fetch = require('node-fetch-polyfill')
 const path = require("path")
-const loadJsonFile = require('load-json-file');
+const loadJsonFile = require('load-json-file')
 
-const pubAddr = process.env.ETH_PUB;
-const privKey = process.env.ETH_PK;
-const infuraKey = process.env.INFURA_TOKEN;
+const pubAddr = process.env.ETH_PUB
+const privKey = process.env.ETH_PK
+const infuraKey = process.env.INFURA_TOKEN
+
+var _UTCtime = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
+var gas_limit = 400000
+
+const network = "mainnet"
+const etherscanUrl = "https://etherscan.io"
+var tellorMasterAddress = '0x0Ba45A8b5d5575935B8158a88C631E9F9C95a2e5'
+
+console.log(_UTCtime)
+console.log("Tellor Address: ", tellorMasterAddress)
+console.log('https://www.etherchain.org/api/gasPriceOracle')
+
 
 function sleep_s(secs) {
     secs = (+new Date) + secs * 1000;
@@ -36,23 +48,6 @@ async function fetchGasPrice() {
     }
 }
 
-var _UTCtime = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
-var gas_limit = 400000
-
-//Rinkeby
-const tellorMasterAddress = '0xFe41Cb708CD98C5B20423433309E55b53F79134a'
-const network = "rinkeby";
-const etherscanUrl = "https://rinkeby.etherscan.io"
-
-// var tellorMasterAddress = '0x0Ba45A8b5d5575935B8158a88C631E9F9C95a2e5'
-// const network = "mainnet";
-// const etherscanUrl = "https://rinkeby.etherscan.io"
-
-
-
-console.log(_UTCtime)
-console.log("Tellor Address: ", tellorMasterAddress)
-console.log('https://www.etherchain.org/api/gasPriceOracle')
 
 let run = async function () {
     try {
