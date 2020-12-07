@@ -19,7 +19,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
-    - run: node 02_pushTellor.js
+    - run: node AMPL/02_pushTellor.js
       env:
         ETH_PK: ${{ secrets.ETH_PK }}
         ETH_PUB: ${{ secrets.ETH_PUB }}

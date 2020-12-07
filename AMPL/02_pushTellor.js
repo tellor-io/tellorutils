@@ -3,7 +3,7 @@
 //                Send Tellor's AMPL price to AMPL                                 //
 
 /******************************************************************************************/
-//truffle exec 02_pushTellor_to_ampl.js --network mainnet
+//node _02_pushTellor.js
 
 require('dotenv').config()
 const ethers = require('ethers');

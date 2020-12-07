@@ -4,7 +4,7 @@
 //                Ensure there are no disputes on AMPL                               //
 
 /******************************************************************************************/
-//truffle exec 03_verifyTellorReports.js --network mainnet
+//node 03_verifyTellor.js
 
 require('dotenv').config()
 const ethers = require('ethers');
