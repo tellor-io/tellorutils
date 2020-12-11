@@ -5,7 +5,7 @@ on:
 
 
 jobs:
-  ampl:
+  PushTellor:
     runs-on: ubuntu-latest
 
     strategy:

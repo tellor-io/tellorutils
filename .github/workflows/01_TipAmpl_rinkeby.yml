@@ -1,11 +1,11 @@
-name: TipAmpl
+name: TipAmpl_rinkeby
 on:
   schedule: 
   - cron: "0 0 * * *"  # https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#scheduled-events
 
 
 jobs:
-  ampl:
+  TipAmpl_rinkeby:
     runs-on: ubuntu-latest
 
     strategy:
