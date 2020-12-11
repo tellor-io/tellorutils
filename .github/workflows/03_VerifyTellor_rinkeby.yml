@@ -1,7 +1,7 @@
 name: VerifyTellor
 on:
   schedule: 
-  - cron: "20 0 * * *"  # https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#scheduled-events
+  - cron: "22 0 * * *"  # https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#scheduled-events
 
 
 jobs:
@@ -19,8 +19,10 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
-    - run: node AMPL/03_verifyTellor_rinkeby.js
+    - run: node AMPL/03_verifyTellor.js rinkeby
       env:
         ETH_PK: ${{ secrets.RINKEBY_ETH_PK }}
         ETH_PUB: ${{ secrets.RINKEBY_ETH_PUB }}
         INFURA_TOKEN: ${{ secrets.INFURA_TOKEN }}
+        RINKEBY_ETH_PK: ${{ secrets.RINKEBY_ETH_PK }}
+        RINKEBY_ETH_PUB: ${{ secrets.RINKEBY_ETH_PUB }}

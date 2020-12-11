@@ -1,9 +1,10 @@
-/**************************Send Tellor's AMPL price to AMPL********************************************/
 
-//                Send Tellor's AMPL price to AMPL                                 //
+/**************************Verify Tellor's AMPL price ********************************************/
+
+//                Ensure there are no disputes on AMPL                               //
 
 /******************************************************************************************/
-//node _02_pushTellor_mainnet.js
+//node 03_verifyTellor_rinkeby.js
 
 require('dotenv').config()
 const ethers = require('ethers');
@@ -11,21 +12,18 @@ const fetch = require('node-fetch-polyfill')
 const path = require("path")
 const loadJsonFile = require('load-json-file')
 
-const pubAddr = process.env.ETH_PUB
-const privKey = process.env.ETH_PK
+const pubAddr = process.env.RINKEBY_ETH_PUB
+const privKey = process.env.RINKEBY_ETH_PK
 const infuraKey = process.env.INFURA_TOKEN
 
 var _UTCtime  = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
 var gas_limit= 400000
 
-const network = "mainnet"
-const etherscanUrl = "https://etherscan.io"
-var AMPLInterAddress = "????????"
-var tellorMasterAddress = '0x0Ba45A8b5d5575935B8158a88C631E9F9C95a2e5'
-
 console.log(_UTCtime)
-console.log("Tellor Address: ", tellorMasterAddress);
 console.log('<https://www.etherchain.org/api/gasPriceOracle>')
+console.log('network',process.argv[2])
+
+
 
 function sleep_s(secs) {
   secs = (+new Date) + secs * 1000;
@@ -51,7 +49,41 @@ async function fetchGasPrice() {
 
 
 
-let run = async function () {
+let run = async function (net) {
+
+    try {
+        if (net == "mainnet") {
+            var network = "mainnet"
+            var etherscanUrl = "https://etherscan.io"
+            var tellorMasterAddress = '0x0Ba45A8b5d5575935B8158a88C631E9F9C95a2e5'
+            var AMPLInterAddress = "???"
+            var pubAddr = process.env.ETH_PUB
+            var privKey = process.env.ETH_PK
+        } else if (net == "rinkeby") {
+            var network = "rinkeby"
+            var etherscanUrl = "https://rinkeby.etherscan.io"
+            var tellorMasterAddress = '0xFe41Cb708CD98C5B20423433309E55b53F79134a'
+            var AMPLInterAddress = "0x1960f02aAC4fFd27A4439a0Fd8B9b6fc4dC01489"
+            var pubAddr = process.env.RINKEBY_ETH_PUB
+            var privKey = process.env.RINKEBY_ETH_PK
+            
+        } else {
+            "network not defined"
+        }
+        var infuraKey = process.env.INFURA_TOKEN
+        console.log("infuraKey", infuraKey)
+        console.log("Tellor Address: ", tellorMasterAddress)
+        console.log("Tellor Address: ", AMPLInterAddress)
+        console.log("nework", network)
+    } catch (error) {
+        console.error(error)
+        console.log("network error or environment not defined")
+        process.exit(1)
+    }
+
+
+
+
     try {
         var gasP = await fetchGasPrice()
         console.log("gasP1", gasP)
@@ -60,7 +92,6 @@ let run = async function () {
         console.log("no gas price fetched")
         process.exit(1)
     }
-
 
     try {
         var provider = ethers.getDefaultProvider(network, infuraKey);
@@ -76,17 +107,15 @@ let run = async function () {
     }
 
 
-    try{
+    try {
         var balNow = ethers.utils.formatEther(await provider.getBalance(pubAddr))
-        console.log("Requester Address", pubAddr)   
-        console.log("Requester ETH Balance",  balNow)
-
+        console.log("Requests Address", pubAddr)
+        console.log("Requester ETH Balance", balNow)
         var ttbalanceNow = ethers.utils.formatEther(await contractWithSigner.balanceOf(pubAddr))
         console.log('Tellor Tributes balance', ttbalanceNow)
         var txestimate = (gasP * gas_limit / 1e18);
-        console.log("txestimate", txestimate)
-    } catch(error) {
-        console.error(error);
+    } catch (error) {
+        console.error(error)
         process.exit(1)
     }
     
@@ -95,7 +124,7 @@ let run = async function () {
             
             let abiAmpl = await loadJsonFile(path.join("abi", "abiAmplIntermediate.json"))
             let amplInter = new ethers.Contract(AMPLInterAddress, abiAmpl, provider);
-            var amplIntertWithSigner = amplInter.connect(wallet);
+            var amplIntertWithSigner = amplInter.connect(wallet)
             console.log("await instating AMPL intermediate contract")
         } catch(error) {
             console.error(error)
@@ -103,42 +132,27 @@ let run = async function () {
             process.exit(1)
         }
 
-
-    /*****Get AMPL last mine time*******/
-    // let offset = -240 //Timezone offset for EST in minutes.
-    // let amplCount = await tellorMaster.getNewValueCountbyRequestId(10)
-    // let amplTime = await tellorMaster.getTimestampbyRequestIDandIndex(10, amplCount - 1) //will this work with a zero index? (or insta hit?)
-
-    // let amplTimefromLastTimestamp = (Date.now())/1000 - web3.utils.hexToNumberString(amplTime)
-    // var amplHowlong = (amplTimefromLastTimestamp)/60
-    // console.log("It has been ", amplHowlong.toFixed(2), " minutes since AMPL was last mined");
-  
-
-
-    /*****END Get AMPL last request*******/
-
-    //    if (amplHowlong < 15) {
-            console.log("Push AMPL")
+            console.log("Verify Tellor's AMPL price")
             try{
-                let tx = await amplIntertWithSigner.pushTellor({ from: pubAddr, gasLimit: gas_limit, gasPrice: gasP });
+                let tx = await amplIntertWithSigner.verifyTellorReports({ from: pubAddr, gasLimit: gas_limit, gasPrice: gasP })
                 var link = "".concat(etherscanUrl, '/tx/', tx.hash)
                 var ownerlink = "".concat(etherscanUrl, '/address/', pubAddr)
                     console.log('Yes, a request was sent for the APML price')
                     console.log("Hash link: ", link)
                     console.log("Sender address: ", ownerlink)
+                
             } catch(error) {
                 console.error(error)
                 process.exit(1)
             }
-            console.log("AMPL was pushed to medianizer")
-        // } else {
-        //     console.log("AMPL has not been mined yet")
-        // }
+            console.log("AMPL has not been disputed")
+            
+
     }
     process.exit()
 
 }
 
-run()
+run(process.argv[2])
 
 

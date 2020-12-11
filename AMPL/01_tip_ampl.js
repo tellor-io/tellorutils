@@ -3,7 +3,7 @@
 //                Tip AMPL on Tellor                                  //
 
 /******************************************************************************************/
-// node 01_tip_apl.js network
+// node AMPL/01_tip_apl.js network
 
 require('dotenv').config()
 const ethers = require('ethers');
