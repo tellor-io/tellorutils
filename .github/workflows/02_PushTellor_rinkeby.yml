@@ -1,11 +1,11 @@
-name: PushTellor
+name: PushTellor_rinkeby
 on:
   schedule: 
   - cron: "12 0 * * *"  # https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#scheduled-events
 
 
 jobs:
-  PushTellor:
+  PushTellor_rinkeby:
     runs-on: ubuntu-latest
 
     strategy:
