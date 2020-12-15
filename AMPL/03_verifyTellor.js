@@ -4,7 +4,7 @@
 //                Ensure there are no disputes on AMPL                               //
 
 /******************************************************************************************/
-//node 03_verifyTellor_rinkeby.js
+//node AMPL/03_verifyTellor_rinkeby.js network
 
 require('dotenv').config()
 const ethers = require('ethers');
