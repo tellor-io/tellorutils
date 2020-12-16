@@ -68,7 +68,7 @@ let run = async function (net) {
             var privKey = process.env.RINKEBY_ETH_PK
             
         } else {
-            "network not defined"
+            console.log("network not defined")
         }
         var infuraKey = process.env.INFURA_TOKEN
         console.log("infuraKey", infuraKey)

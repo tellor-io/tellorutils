@@ -98,7 +98,7 @@ let run = async function (net) {
             var url = "https://rpc-mumbai.maticvigil.com/v1/" + maticKey
             var provider = new ethers.providers.JsonRpcProvider(url)      
         } else {
-            "network not defined"
+            console.log("network not defined")
         }
         
         console.log("TellorToo Address: ", tellorTooAddress)
