@@ -42,4 +42,21 @@ Note: If you click "Update" on any of the existing secrets, they will appear emp
 
 Don't change secrets associated with this repo, or scripts currently running can break if they do not hold the ETH, TRB or Matic tokens needed to run transactions. 
 
+
+### Notifications
+Update your notifications to be notified when jobs fail.
+
+From the repo
+
+1. Go to "Settings" on the horizontal menu bar 
+2. Go to "Notificatons" on the left-hand side bar to update your notifications
+
+
+## Running scripts manually
+If the scripts fail, you will be notified. To run the scripts manually:
+
+1. Clone the repo
+2. run the commands after "- run:" in the corresponding workflow file in the order they appear.
+ 
+
 Have fun automating!
