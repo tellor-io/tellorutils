@@ -50,7 +50,7 @@ async function fetchPrice(URL, pointer, currency) {
   try {
     const fetchResult = fetch(URL);
     const response = await fetchResult;
-    //console.log("response", response);
+    //console.log("response", response)
     const jsonData = await response.json();
     console.log(jsonData);
     const priceNow = await jsonData[pointer][currency];
@@ -135,7 +135,7 @@ let run = async function (net) {
 
         try {
             var balNow = ethers.utils.formatEther(await provider.getBalance(pubAddr))
-            console.log("Requests Address", pubAddr)
+            console.log("Requester Address", pubAddr)
             console.log("Requester Matic Balance", balNow)
             var txestimate = (gasP * gas_limit / 1e18);
         } catch (error) {
@@ -204,7 +204,7 @@ let run = async function (net) {
 
             } catch(error){
                 console.error(error);
-                console.log("data mot sent for request id: ", i);
+                console.log("data not sent for request id: ", req);
                 process.exit(1)
             }
         } else{

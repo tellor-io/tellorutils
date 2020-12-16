@@ -50,15 +50,15 @@ async function fetchPrice(URL, pointer, currency) {
     const response = await fetchResult;
     //console.log("response", response);
     const jsonData = await response.json();
-    console.log(jsonData);
+    console.log(jsonData)
     const priceNow = await jsonData[pointer][currency];
-    console.log(priceNow);
+    console.log(priceNow)
     const priceNow2 = await priceNow*1000000
     console.log(priceNow2)
     const priceNow3 = await Number(priceNow2.toFixed(0))
-    return(priceNow3);
+    return(priceNow3)
   } catch(e){
-    throw Error(e);
+    throw Error(e)
   }
 }
 
@@ -79,10 +79,11 @@ let run = async function (net) {
             var tellorMasterAddress = '0x0Ba45A8b5d5575935B8158a88C631E9F9C95a2e5'
             var pubAddr = process.env.ETH_PUB
             var privKey = process.env.ETH_PK
-        } else if (net == "rinkeby") {
-            var network = "rinkeby"
-            var etherscanUrl = "https://rinkeby.etherscan.io"
-            var tellorMasterAddress = '0xFe41Cb708CD98C5B20423433309E55b53F79134a'
+        } else if (net == "goerli") {
+            var network = "goerli"
+            var etherscanUrl = "https://goeli.etherscan.io"
+            //this is TellorPlayground
+            var tellorMasterAddress = '0x20374E579832859f180536A69093A126Db1c8aE9'
             var pubAddr = process.env.RINKEBY_ETH_PUB
             var privKey = process.env.RINKEBY_ETH_PK
             
@@ -111,11 +112,19 @@ let run = async function (net) {
     }
 
     try {
-        var provider = ethers.getDefaultProvider(network, infuraKey);
-        let wallet = new ethers.Wallet(privKey, provider);
-        let abi = await loadJsonFile(path.join("abi", "tellor.json"))
-        let contract = new ethers.Contract(tellorMasterAddress, abi, provider);
-        var contractWithSigner = contract.connect(wallet);
+        var provider = ethers.getDefaultProvider(network, infuraKey)
+        let wallet = new ethers.Wallet(privKey, provider)
+        if (network == "mainnet"){
+            var abi = await loadJsonFile(path.join("abi", "tellor.json"))
+
+        } else if (network == "goerli") {
+            var abi = await loadJsonFile(path.join("abi", "abiTellorPlayground.json"))
+        } else {
+            console.log("not a valid network. ABI not loaded")
+        }
+
+        let contract = new ethers.Contract(tellorMasterAddress, abi, provider)
+        var contractWithSigner = contract.connect(wallet)
 
     } catch (error) {
         console.error(error)
@@ -129,7 +138,7 @@ let run = async function (net) {
 
         try {
             var balNow = ethers.utils.formatEther(await provider.getBalance(pubAddr))
-            console.log("Requests Address", pubAddr)
+            console.log("Requester Address", pubAddr)
             console.log("Requester ETH Balance", balNow)
             var ttbalanceNow = ethers.utils.formatEther(await contractWithSigner.balanceOf(pubAddr))
             console.log('Tellor Tributes balance', ttbalanceNow)
@@ -141,7 +150,7 @@ let run = async function (net) {
 
     
         if (gasP != 0 && txestimate < balNow && ttbalanceNow > 1)  {
-            console.log("Send data to TellorToo")
+            console.log("Send data or tip to Tellor")
             try{
                 let dat
                 let point
@@ -159,19 +168,21 @@ let run = async function (net) {
                 req = requestIds[i]
                 apiPrice = await fetchPrice(dat, point, cur)
                 console.log("apiPrice", apiPrice)
-                timestamp = (Date.now())/1000 | 0
+                timestamp = ( (Date.now() /1000)| 0 ) + 3600
                 console.log("timestamp", timestamp)
 
-                if (network == goerli)  {
+                if (network == "goerli")  {
                 //send update to TellorToo
-                    let tx = await contractWithSigner.submitData(req, timestamp, apiPrice, { from: pubAddr, gasLimit: gas_limit, gasPrice: gasP })
-                } else if (network == mainnet) {
-                    let tx = await contractWithSigner.addTip(10, 1, { from: pubAddr, gasLimit: gas_limit, gasPrice: gasP })
+                    var tx = await contractWithSigner.submitValue(req, apiPrice, { from: pubAddr, gasLimit: gas_limit, gasPrice: gasP })
+                } else if (network == "mainnet") {
+                    var tx = await contractWithSigner.addTip(req, 1, { from: pubAddr, gasLimit: gas_limit, gasPrice: gasP })
+                } else {
+                    console.log("not a valid network. SubmitData or addTip were not sent")
                 }
 
 
                 var link = "".concat(etherscanUrl, '/tx/', tx.hash)
-                var ownerlink = "".concat(etherscanUrl, '/address/', tellorTooAddress)
+                var ownerlink = "".concat(etherscanUrl, '/address/', tellorMasterAddress)
                 console.log('Yes, price data was sent for request ID: ', req)
                 console.log("Hash link: ", link)
                 console.log("Contract link: ", ownerlink)
@@ -206,7 +217,7 @@ let run = async function (net) {
 
             } catch(error){
                 console.error(error);
-                console.log("data mot sent for request id: ", i);
+                console.log("data not sent for request id: ", req);
                 process.exit(1)
             }
         } else{
