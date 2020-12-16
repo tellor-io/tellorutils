@@ -1,13 +1,13 @@
 # Github workflows
 
-This repo is used to automate jobs using github workflows. 
+This repo is used to automate jobs using Github workflows. 
 
 
 ## Structure
 
 ### Projects
 
-Create a folder for each project to house the scripts associated with them. For example, all the scripts associated with AMPL's utomated processes are in the AMPL folder. 
+Create a folder for each project to house the scripts associated with them. For example, all the scripts associated with AMPL's automated processes are in the AMPL folder. 
 
 ### Scripts and languages
 The scripts use the ethers.js library to interact with the blockchain. This repo does not currently run using truffle.
@@ -32,8 +32,8 @@ This repo contains a file named .env.example to be used as a guide to create a .
 From the repo
 
 1. Go to "Settings" on the horizontal menu bar 
-2. Go to "Secrets" on the left hand side bar
-3. Click on the "New repostitory secret" on the top right hand side to add secrets. 
+2. Go to "Secrets" on the left-hand side bar
+3. Click on the "New repository secret" on the top right-hand side to add secrets. 
 
 Note: If you click "Update" on any of the existing secrets, they will appear empty. 
 
