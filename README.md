@@ -17,8 +17,7 @@ The scripts use the ethers.js library to interact with the blockchain. This repo
 Each script needs to be scheduled with a .yml file saved under the .github->workflows folder. 
 
 More documentation on scheduling jobs can be found here: [https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#scheduled-events
-] (https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#scheduled-events
-)
+](https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#scheduled-events)
 
 ### Saving the ABI
 
