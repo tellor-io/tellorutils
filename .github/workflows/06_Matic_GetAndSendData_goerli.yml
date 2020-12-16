@@ -1,11 +1,11 @@
-name: TipAmpl_rinkeby
+name: MaticGetAndSendData_goerli
 on:
   schedule: 
-  - cron: "2 0 * * *"  # https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#scheduled-events
+  - cron: "30 */8 * * *"  # https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#scheduled-events
 
 
 jobs:
-  TipAmpl_rinkeby:
+  MaticGetAndSendData_goerli:
     runs-on: ubuntu-latest
 
     strategy:
@@ -19,8 +19,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
-    - run: node AMPL/01_tip_ampl.js rinkeby
-
+    - run: node Matic/03_GetAndSendData.js goerli
       env:
         ETH_PK: ${{ secrets.ETH_PK }}
         ETH_PUB: ${{ secrets.ETH_PUB }}

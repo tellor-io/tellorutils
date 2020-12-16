@@ -1,10 +1,10 @@
-/**************************Matic Auto data feed********************************************/
+/**************************Ethereum Auto data tip or feed********************************************/
 
-//                         TellorToo price feed                                   //
+//               Tellor AddTip or SubmitValue to Playground          //
 
 /******************************************************************************************/
 
-// node Matic/01_AddTipAndFeedPlayground.js network
+// node Matic/02_AddTipAndFeedPlayground.js network
 require('dotenv').config()
 const ethers = require('ethers');
 const fetch = require('node-fetch-polyfill')

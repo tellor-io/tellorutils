@@ -18,7 +18,7 @@ var gas_limit = 400000
 
 
 console.log(_UTCtime)
-console.log('https://www.etherchain.org/api/gasPriceOracle')
+console.log('not working:  https://gasstation-mainnet.matic.network')
 console.log('network',process.argv[2])
 
 function sleep_s(secs) {
@@ -27,9 +27,10 @@ function sleep_s(secs) {
 }
 
 //https://ethgasstation.info/json/ethgasAPI.json
-//https://www.etherchain.org/api/gasPriceOracle
+//works: https://www.etherchain.org/api/gasPriceOracle
+//const URL2 = 'https://gasstation-mainnet.matic.network'
 async function fetchGasPrice() {
-    const URL = `https://www.etherchain.org/api/gasPriceOracle`;
+    const URL = `https://gasstation-mainnet.matic.network`;
     try {
         const fetchResult = fetch(URL);
         const response = await fetchResult;
@@ -41,6 +42,8 @@ async function fetchGasPrice() {
         throw Error(e);
     }
 }
+
+
 
 //url and jsonData.${expression}
 //function that pulls data from API
@@ -109,7 +112,8 @@ let run = async function (net) {
 
 
     try {
-        var gasP = await fetchGasPrice()
+        //var gasP = await fetchGasPrice()
+        var gasP = 4000000000
         console.log("gasP1", gasP)
     } catch (error) {
         console.error(error)
