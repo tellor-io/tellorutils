@@ -22,5 +22,8 @@
     "load-json-file": "^6.2.0",
     "node-fetch-polyfill": "^2.0.6",
     "path": "^0.12.7"
+  },
+  "dependencies": {
+    "bignumber.js": "^9.0.1"
   }
 }
