@@ -48,18 +48,19 @@ let run = async function (net, myid) {
             var tellorMasterAddress = '0x0Ba45A8b5d5575935B8158a88C631E9F9C95a2e5'
             var pubAddr = process.env.ETH_PUB
             var privKey = process.env.ETH_PK
+            var provider = new ethers.providers.JsonRpcProvider(process.env.MAINNET_NODE)
         } else if (net == "rinkeby") {
             var network = "rinkeby"
             var etherscanUrl = "https://rinkeby.etherscan.io"
             var tellorMasterAddress = '0xFe41Cb708CD98C5B20423433309E55b53F79134a'
             var pubAddr = process.env.RINKEBY_ETH_PUB
             var privKey = process.env.RINKEBY_ETH_PK
+            var provider = new ethers.providers.JsonRpcProvider(process.env.RINKEBY_NODE)
             
         } else {
            console.log( "network not defined")
         }
-        var infuraKey = process.env.INFURA_TOKEN
-        console.log("infuraKey", infuraKey)
+
         console.log("Tellor Address: ", tellorMasterAddress)
         console.log("nework", network)
     } catch (error) {
@@ -80,7 +81,6 @@ let run = async function (net, myid) {
     }
 
     try {
-        var provider = ethers.getDefaultProvider(network, infuraKey);
         let wallet = new ethers.Wallet(privKey, provider);
         let abi = await loadJsonFile(path.join("abi", "tellor.json"))
         let contract = new ethers.Contract(tellorMasterAddress, abi, provider);
