@@ -3,7 +3,7 @@
 //                Tip AMPL on Tellor                                  //
 
 /******************************************************************************************/
-// node AMPL/01_tip_apl.js network
+// node AMPL/01_tip_apl.js network myid
 
 require('dotenv').config()
 const ethers = require('ethers');
@@ -40,7 +40,7 @@ async function fetchGasPrice() {
 }
 
 
-let run = async function (net) {
+let run = async function (net, myid) {
     try {
         if (net == "mainnet") {
             var network = "mainnet"
@@ -105,28 +105,56 @@ let run = async function (net) {
         process.exit(1)
     }
 
-    if (gasP != 0 && txestimate < balNow && ttbalanceNow > 1) {
-        console.log("Send request for AMPL")
-        try {
-            var gasP = await fetchGasPrice()
-
-            let tx = await contractWithSigner.addTip(10, 1, { from: pubAddr, gasLimit: gas_limit, gasPrice: gasP });
-            var link = "".concat(etherscanUrl, '/tx/', tx.hash)
-            var ownerlink = "".concat(etherscanUrl, '/address/', tellorMasterAddress)
-            console.log('Yes, a request was sent for the APML price')
-            console.log("Hash link: ", link)
-            console.log("Contract link: ", ownerlink)
-            console.log('Waiting for the transaction to be mined');
-            await tx.wait() // If there's an out of gas error the second parameter is the receipt.
-        } catch (error) {
-            console.error(error)
-            process.exit(1)
-        }
-        console.log("AMPL was tipped")
-        process.exit()
+    try {
+        //check it is not already on queue and if not then tip
+        var reqIds = await contractWithSigner.getTopRequestIDs()
+        console.log("reqIds", reqIds)
+        var x = reqIds.length
+        var inQ = 0
+        var i = 0
+            if (x >0){            
+                do {
+                    console.log("myid", myid)
+                    if (myid == reqIds[i]*1) {
+                        console.log("reqIds[i]", i, reqIds[i]*1 )
+                        inQ++
+                        console.log("inQ?", inQ*1)
+                        } 
+                    i++
+                    console.log("i", i)
+                }  while (inQ == 0 | i<x)
+            }
+    } catch (error) {
+        console.error(error)
+        process.exit(1)
     }
-    console.error('Not enough balance');
-    process.exit(1)
+
+    if (inQ ==0) {
+        if (gasP != 0 && txestimate < balNow && ttbalanceNow > 1 ) {
+        console.log("Send request for AMPL")
+            try {
+                var gasP = await fetchGasPrice()
+                let tx = await contractWithSigner.addTip(myid, 1, { from: pubAddr, gasLimit: gas_limit, gasPrice: gasP });
+                var link = "".concat(etherscanUrl, '/tx/', tx.hash)
+                var ownerlink = "".concat(etherscanUrl, '/address/', tellorMasterAddress)
+                console.log('Yes, a request was sent for the APML price')
+                console.log("Hash link: ", link)
+                console.log("Contract link: ", ownerlink)
+                console.log('Waiting for the transaction to be mined');
+                await tx.wait() // If there's an out of gas error the second parameter is the receipt.
+            } catch (error) {
+                console.error(error)
+                process.exit(1)
+            }
+        console.log("AMPL was tipped. reqId: ", myid)
+        process.exit()
+        }
+        console.error('Not enough balance');
+        process.exit(1)
+    } else {
+    console.log("Your req id is already on queue", myid)
+    process.exit()
+    }
 }
 
-run(process.argv[2])
+run(process.argv[2],process.argv[3])

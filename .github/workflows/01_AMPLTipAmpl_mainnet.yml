@@ -19,7 +19,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
-    - run: node AMPL/01_tip_ampl.js mainnet
+    - run: node AMPL/01_tip_ampl.js mainnet 10
 
       env:
         ETH_PK: ${{ secrets.ETH_PK }}
