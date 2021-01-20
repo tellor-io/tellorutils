@@ -1,5 +1,5 @@
 {
-  "name": "utils",
+  "name": "tellorutils",
   "version": "0.0.1",
   "description": "",
   "main": "01_addTip.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tellor-io/utils.git"
+    "url": "git+https://github.com/tellor-io/tellorutils.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/tellor-io/utils/issues"
+    "url": "https://github.com/tellor-io/tellorutils/issues"
   },
-  "homepage": "https://github.com/tellor-io/utils#readme",
+  "homepage": "https://github.com/tellor-io/tellorutils#readme",
   "devDependencies": {
     "dotenv": "^8.2.0",
     "ethers": "^5.0.23",
