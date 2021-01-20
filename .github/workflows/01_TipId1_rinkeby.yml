@@ -1,11 +1,11 @@
-name: MaticGetAndSendData_goerli
+name: TipReqId1_rinkeby
 on:
   schedule: 
-  - cron: "30 */8 * * *"  # https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#scheduled-events
+  - cron: "2 0 * * *"  # https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#scheduled-events
 
 
 jobs:
-  MaticGetAndSendData_goerli:
+  TipReqId1_rinkeby:
     runs-on: ubuntu-latest
 
     strategy:
@@ -19,7 +19,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
-    - run: node Matic/03_GetAndSendData.js goerli
+    - run: node TellorMonitors/01_addTip.js rinkeby 1
+
       env:
         ETH_PK: ${{ secrets.ETH_PK }}
         ETH_PUB: ${{ secrets.ETH_PUB }}

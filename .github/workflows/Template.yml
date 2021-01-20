@@ -1,11 +1,11 @@
-name: AMPLVerifyTellor_rinkeby
+name: TipMyReqId_rinkeby
 on:
   schedule: 
-  - cron: "22 0 * * *"  # https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#scheduled-events
+  - cron: "0 0 * * *"  # https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#scheduled-events
 
 
 jobs:
-  AMPLVerifyTellor_rinkeby:
+  TipMyReqId_rinkeby:
     runs-on: ubuntu-latest
 
     strategy:
@@ -19,10 +19,11 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
-    - run: node AMPL/03_verifyTellor.js rinkeby
+    - run: node TellorMonitors/01_addTip.js network reqId
+
       env:
-        ETH_PK: ${{ secrets.RINKEBY_ETH_PK }}
-        ETH_PUB: ${{ secrets.RINKEBY_ETH_PUB }}
+        ETH_PK: ${{ secrets.ETH_PK }}
+        ETH_PUB: ${{ secrets.ETH_PUB }}
         INFURA_TOKEN: ${{ secrets.INFURA_TOKEN }}
         RINKEBY_ETH_PK: ${{ secrets.RINKEBY_ETH_PK }}
         RINKEBY_ETH_PUB: ${{ secrets.RINKEBY_ETH_PUB }}

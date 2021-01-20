@@ -2,7 +2,7 @@
   "name": "utils",
   "version": "0.0.1",
   "description": "",
-  "main": "01_tip_ampl.js",
+  "main": "01_addTip.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

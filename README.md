@@ -7,7 +7,7 @@ This repo is used to automate jobs using Github workflows.
 
 ### Projects
 
-Create a folder for each project to house the scripts associated with them. For example, all the scripts associated with AMPL's automated processes are in the AMPL folder. 
+Create a folder for each project to house the scripts associated with them. 
 
 ### Scripts and languages
 The scripts use the ethers.js library to interact with the blockchain. This repo does not currently run using truffle.
@@ -21,7 +21,7 @@ More documentation on scheduling jobs can be found here: [https://docs.github.co
 
 ### Saving the ABI
 
-Save any ABI files under the abi folder. 
+Save any ABI files under the abi folder. The abi folder currently contains the abi for Tellor and TellorPlayground.
 
 ### Private keys, .env and secrets
 
@@ -36,11 +36,6 @@ From the repo
 3. Click on the "New repository secret" on the top right-hand side to add secrets. 
 
 Note: If you click "Update" on any of the existing secrets, they will appear empty. 
-
-
-### Do Not change the secrets associated with this repo
-
-Don't change secrets associated with this repo, or scripts currently running can break if they do not hold the ETH, TRB or Matic tokens needed to run transactions. 
 
 
 ### Notifications

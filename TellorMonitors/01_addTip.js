@@ -1,9 +1,9 @@
-/**************************ETH tip AMPL********************************************/
+/**************************Add Tip to my request id********************************************/
 
-//                Tip AMPL on Tellor                                  //
+//                Tip my request id on Tellor                                  //
 
 /******************************************************************************************/
-// node AMPL/01_tip_apl.js network myid
+// node TellorMonitor/01_tip_apl.js network myid
 
 require('dotenv').config()
 const ethers = require('ethers');
@@ -113,7 +113,7 @@ let run = async function (net, myid) {
         var inQ = 0
         var i = 0
             if (x >0){            
-                do {
+                while ( i<x){
                     console.log("myid", myid)
                     if (myid == reqIds[i]*1) {
                         console.log("reqIds[i]", i, reqIds[i]*1 )
@@ -122,8 +122,11 @@ let run = async function (net, myid) {
                         } 
                     i++
                     console.log("i", i)
-                }  while (inQ == 0 | i<x)
-            }
+                    if(inQ > 0){
+                        break
+                    }
+                }
+           }
     } catch (error) {
         console.error(error)
         process.exit(1)
@@ -131,13 +134,13 @@ let run = async function (net, myid) {
 
     if (inQ ==0) {
         if (gasP != 0 && txestimate < balNow && ttbalanceNow > 1 ) {
-        console.log("Send request for AMPL")
+        console.log("Send request for requestId: ", myid)
             try {
                 var gasP = await fetchGasPrice()
                 let tx = await contractWithSigner.addTip(myid, 1, { from: pubAddr, gasLimit: gas_limit, gasPrice: gasP });
                 var link = "".concat(etherscanUrl, '/tx/', tx.hash)
                 var ownerlink = "".concat(etherscanUrl, '/address/', tellorMasterAddress)
-                console.log('Yes, a request was sent for the APML price')
+                console.log('Yes, a request was sent for requId: ', myid)
                 console.log("Hash link: ", link)
                 console.log("Contract link: ", ownerlink)
                 console.log('Waiting for the transaction to be mined');
@@ -146,7 +149,7 @@ let run = async function (net, myid) {
                 console.error(error)
                 process.exit(1)
             }
-        console.log("AMPL was tipped. reqId: ", myid)
+        console.log("myId was tipped. reqId: ", myid)
         process.exit()
         }
         console.error('Not enough balance');
