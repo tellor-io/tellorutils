@@ -1,15 +1,14 @@
 # Github workflows
 
-This repo is used to automate jobs using Github workflows. 
+This repository can be used as a template to automate jobs using github workflows. This repo contains scripts that are useful to Tellor users. 
 
 
 ## Setup
+Setup github workflow.
 
 ###  Fork this repo
 
-Setup github workflow to tip the request id you are interested on:
-1.	Fork the repo tellorutils
- https://github.com/tellor-io/tellorutils
+Fork the repo tellorutils:  https://github.com/tellor-io/tellorutils
 
 ### Scheduling jobs
 
