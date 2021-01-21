@@ -55,3 +55,31 @@ If the scripts fail, you will be notified. To run the scripts manually:
  
 
 Have fun automating!
+
+
+
+step by step instructions:
+Setup github workflow to tip the request id you are interested on:
+1.	Fork the repo tellorutils
+ https://github.com/tellor-io/tellorutils
+
+2.	Create a copy of template.yml under .github/workflows 
+3.	Name it appropriately
+4.	Update the parameters in the file created on step 2.
+5.	Name: this will be the name of the job and will appear as the subject on the notification email if the job fails. 
+6.	Update the “schedule:” to how often and what time you need this to run. Here is a guide for the variables used for scheduling a cron job: https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#scheduled-events
+7.	On line 22 replace “network” with the specific network. For example: mainnet, rinkeby, goerli, etc.
+8.	On line 22 replace “reqId” to the request Id you want to tip
+9.	Save your changes
+10.	Commit your changes to your new repo
+git add .
+git commit -m “scheduled tips for request id x”
+git push origin main
+**Note: your changes must be pushed to the “main” branch for the workflows to execute. 
+11.	Add a .env file based on the provided example to test your update locally
+12.	Secrets
+13.	Click on “Settings” under your repo on github 
+14.	Click on “Secrets” on the left-hand side menu
+15.	Click on the “New repository secret” button on the top right hand side
+16.	Add all the variables in the .env file as secrets
+17.	If the script fails it will send a message to the registered github email and the logs are available under “Actions” 
