@@ -1,6 +1,6 @@
 # Github workflows
 
-This repository can be used as a template to automate jobs using github workflows. This repo contains scripts that are useful to Tellor users. 
+This repository can be used as a template to automate jobs using github workflows. This repository contains scripts that are useful to Tellor users. 
 
 
 ## Setup
@@ -17,9 +17,9 @@ Each script needs to be scheduled with a .yml file saved under the .github->work
 
 ### Schedule AddTip
 
-2.	Create a copy of template.yml under .github/workflows 
-3.	Name it appropriately
-4.	Update the parameters in the file created on step 2.
+1.	Create a copy of template.yml under .github/workflows 
+2.	Name it appropriately
+3.	Update the parameters in the file created on step 2.
 	
     Name: this will be the name of the job and will appear as the subject on the notification email if the job fails. 
 	
@@ -29,10 +29,10 @@ Each script needs to be scheduled with a .yml file saved under the .github->work
 ](https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#scheduled-events)
 
 
-5.	On line 22 replace “network” with the specific network. For example: mainnet, rinkeby, goerli, etc.
-6.	On line 22 replace “reqId” to the request Id you want to tip
-7.	Save your changes
-8.	Commit your changes to your new repo
+4.	On line 22 replace “network” with the specific network. For example: mainnet, rinkeby, goerli, etc.
+5.	On line 22 replace “reqId” to the request Id you want to tip
+6.	Save your changes
+7.	Commit your changes to your new repo
 
 ```bash
 git add .
@@ -46,7 +46,6 @@ git push origin main
 ### Scripts and languages
 
 The scripts use the ethers.js library to interact with the blockchain. This repo does not currently run using truffle.
-
 
 
 ### Saving the ABI
@@ -68,6 +67,7 @@ From the repo
 
 Note: If you click "Update" on any of the existing secrets, they will appear empty. 
 
+More documentation about [github secrets] (https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository)
 
 ### Notifications
 Update your notifications to be notified when jobs fail.
