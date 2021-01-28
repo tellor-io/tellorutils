@@ -24,6 +24,7 @@ jobs:
       env:
         ETH_PK: ${{ secrets.ETH_PK }}
         ETH_PUB: ${{ secrets.ETH_PUB }}
-        INFURA_TOKEN: ${{ secrets.INFURA_TOKEN }}
+        RINKEBY_NODE: ${{ secrets.RINKEBY_NODE }}
+        MAINNET_NODE: ${{ secrets.MAINNET_NODE }}
         RINKEBY_ETH_PK: ${{ secrets.RINKEBY_ETH_PK }}
         RINKEBY_ETH_PUB: ${{ secrets.RINKEBY_ETH_PUB }}
