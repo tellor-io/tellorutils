@@ -29,10 +29,11 @@ Each script needs to be scheduled with a .yml file saved under the .github->work
 ](https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#scheduled-events)
 
 
-4.	On line 22 replace “network” with the specific network. For example: mainnet, rinkeby, goerli, etc.
-5.	On line 22 replace “reqId” to the request Id you want to tip
-6.	Save your changes
-7.	Commit your changes to your new repo
+4.	On line 22 remove the "#" to un-comment it out. It is currently commented out so that the job is not ran or fail since this repository is only a template.
+5. On line 22 replace “network” with the specific network. For example: mainnet, rinkeby, goerli, etc.
+6.	On line 22 replace “reqId” to the request Id you want to tip
+7.	Save your changes
+8.	Commit your changes to your new repo
 
 ```bash
 git add .
